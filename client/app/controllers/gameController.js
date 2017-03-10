@@ -7,8 +7,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             'limit' : '10',
             'offset' : $getRandomOffset
         };
-        Spotify.search('genre:pop', 'track', $options).then(function (data) {
-            console.log(data);
+        Spotify.search('genre:pop', 'track', $options).then(function (response) {
+            $scope.songs = response.data.tracks.items;
         });
     }
 
