@@ -27,10 +27,14 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
 
     var initGame = function () {
-        Spotify.getCategories({}).then(function (response) {
-            $scope.categories = response.data.categories.items;
+
+        Spotify.getCurrentUser().then(function (response) {
+            $scope.currentUser = response.data;
+            $scope.currentUserUri = $sce.trustAsResourceUrl("https://embed.spotify.com/follow/1/?uri=spotify%3Auser%3A"+$scope.currentUser.id+"&size=detail&theme=light");
+            Spotify.getCategories({}).then(function (response) {
+                $scope.categories = response.data.categories.items;
+            });
         });
-    };
 
     $scope.selectCategory = function (category) {
       $scope.isPlaying = true;

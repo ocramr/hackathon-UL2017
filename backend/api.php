@@ -37,7 +37,7 @@ $app->group('/game', function (){
 
     $this->post('/play', GameController::class. ':play')->setName('play');
 
-})->add('CORS');;
+})->add('CORS');
 
 
 $app->run();

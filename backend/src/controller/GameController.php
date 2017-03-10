@@ -13,25 +13,27 @@ use app\model\Game_Song;
 class GameController extends AbstractController
 {
 
-    public function play(Request $request, Response $response, $args)
+    public function play($request, $response, $args)
     {
 
     	try 
     	{
     		$data = $request->getParams();
 
+    		var_dump(json_encode($data));
+
     		/*if (!isset($data["name"]) || !isset($data["owner"]) || !isset($data["songs"]))
     			return $this->json_error($response, 400, "Missing parameters");*/
 
-    		var_dump($data);die;
+    		//var_dump($data);die;
 
-    		$game = new Game();
-    		$game->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
+    		//$game = new Game();
+    		//$game->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
     		//$game->save();
 
-    		var_dump($data["songs"]);die;
-    		foreach ($data["songs"] as $song) {
-    			var_dump($song);
+    		//var_dump($data["songs"]);die;
+    		//foreach ($data["songs"] as $song) {
+    			//var_dump($song);
     			/*$newSong = new Song();
     			$newSong->id = $song["items"]["id"];
     			$newSong->url_spofity = $song["items"]["href"];
@@ -42,7 +44,9 @@ class GameController extends AbstractController
     			$game_song->id_game = $game->id;
     			$game_song->id_song = $newSong->id;
     			$game_song->save();*/
-    		}
+    		//}
+
+    		//echo"aaa";
 
     	} catch (ModelNotFoundException $e) {
     		return $this->json_error($response, 404, "Not found");
