@@ -10,11 +10,17 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     
 </head>
-<body class="container">
+<body ng-app="spotyGame" class="container">
+    <div class="col-md-offset-4 col-md-4">
+    	<a href="#" class="btn btn-lg btn-block play-btn">Play</a>
+    </div>
 
-	<div class="col-md-offset-4 col-md-4">
-		<a href="#" class="btn btn-lg btn-block play-btn">Play</a>
-	</div>
-
+    <div ng-controller="gameController">
+        {{cats}}
+    </div>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-spotify/dist/angular-spotify.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/gameController.js"></script>
 </body>
 </html>
