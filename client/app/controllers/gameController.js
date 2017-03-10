@@ -4,9 +4,16 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         Spotify.login().then(function (data) {
             console.log(data);
             alert("You are now logged in");
-            $location.url('/play');
+            initGame();
         }, function () {
             console.log('didn\'t log in');
         })
     };
+
+    var initGame = function () {
+        $location.url('/play');
+        Spotify.getCategories({}).then(function (data) {
+            console.log(data);
+        });
+    }
 }]);
