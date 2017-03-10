@@ -5813,6 +5813,7 @@ button.close {
   float: left;
 }
 
+
 .image { 
    position: relative; 
    width: 100%; /* for IE 6 */
@@ -5822,3 +5823,36 @@ h2 {
    position: absolute; 
 
 }
+
+#track-name {
+    display: none !important;
+}
+.header{
+  margin-top: 25px;
+}
+.header h1
+{
+  color : #fff;
+}
+a {
+  color : #fff;
+}
+
+.divbody {
+    width: 45%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 18px;
+    background-color: black;
+}
+
+.choice {
+    color: lightgray;
+    font-weight: bold;
+    padding: 10px;
+    border-top: 1px solid #696767;
+    width: 100%;
+}
+>>>>>>> 70e0d8ff70e873a197db5a437e5137bce00a3024
