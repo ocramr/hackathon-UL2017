@@ -1,2 +1,4 @@
 <h1>Categories</h1>
-<p ng-repeat="category in categories">{{category.name}}</p>
+<div id="categories">
+    <p ng-repeat="category in categories" ng-click="selectCategory(category)" ng-hide="isPlaying" class="ng-hide">{{category.name}}</p>
+</div>
