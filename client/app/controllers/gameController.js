@@ -10,7 +10,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         Spotify.search('genre:pop', 'track', $options).then(function (response) {
             $scope.songs = response.data.tracks.items;
         });
-    }
+    };
 
     var initGame = function () {
         Spotify.getCategories({}).then(function (response) {
