@@ -1,0 +1,3 @@
+<div ng-repeat="category in categories">
+    <img id="cat" src="{{category.icons[0].url}}" alt="{{category.name}}" class="img-thumbnail" ng-click="selectCategory(category)" ng-hide="isPlaying" class="ng-hide">
+</div>
