@@ -9,7 +9,10 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
         .when('/#!/play', {
             templateUrl: '../assets/templates/game.html',
             controller: 'gameController'
-        }).otherwise({redirectTo: '/'}
+        }).when('/play', {
+            templateUrl: '../assets/templates/game.html',
+            controller: 'gameController'
+    }).otherwise({redirectTo: '/'}
     );
 
     $locationProvider.html5Mode(true);
