@@ -2,7 +2,7 @@
 
 namespace app;
 
-use Illuminate\Support\Manager;
+use Illuminate\Database\Capsule\Manager;
 
 class AppInit
 {
