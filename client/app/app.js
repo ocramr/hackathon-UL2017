@@ -14,7 +14,7 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
 
     $logProvider.debugEnabled(true);
   SpotifyProvider.setClientId('e3cd640ff09c48789ea6708e8187cee0');
-  SpotifyProvider.setRedirectUri('http://spotyplay.local/play');
+  SpotifyProvider.setRedirectUri('http://spotyplay.local/#!/play');
   SpotifyProvider.setScope('playlist-read-private');
 });
     
