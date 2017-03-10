@@ -1,0 +1,28 @@
+{
+  "name": "Project",
+  "homepage": "https://github.com/mcesarvela/",
+  "authors": [
+    "Ismail Daoudy",
+    "Ikram Ahmani",
+    "Chakib Bouabd",
+    "Marco Vela"
+  ],
+  "description": "Projet pour Hackaton CodeIn.24 UL",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "angular": "^1.6.1",
+    "bootstrap-sass": "^3.3.7",
+    "angular-route": "^1.6.2",
+    "angular-animate": "^1.6.2"
+  }
+}

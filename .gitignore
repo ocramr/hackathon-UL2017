@@ -1,0 +1,6 @@
+*/vendor/*
+.idea/
+composer.lock
+bower_components
+api/conf/*
+client*/css/style.css.map
