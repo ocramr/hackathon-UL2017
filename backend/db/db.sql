@@ -11,16 +11,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Game`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Game` (
+CREATE TABLE IF NOT EXISTS `Game` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -30,7 +26,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Song`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Song` (
+CREATE TABLE IF NOT EXISTS `Song` (
   `id` INT NOT NULL,
   `url_spofity` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -40,7 +36,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Player`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Player` (
+CREATE TABLE IF NOT EXISTS `Player` (
   `id` INT NOT NULL,
   `pseudo` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -50,7 +46,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Game_song`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Game_song` (
+CREATE TABLE IF NOT EXISTS `Game_song` (
   `id_song` INT NOT NULL,
   `is_game` INT NULL,
   PRIMARY KEY (`id_song`),
@@ -71,7 +67,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Game_player`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Game_player` (
+CREATE TABLE IF NOT EXISTS `Game_player` (
   `id_game` INT NOT NULL,
   `id_player` INT NULL,
   PRIMARY KEY (`id_game`),
