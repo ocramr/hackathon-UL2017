@@ -4,9 +4,9 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
     $routeProvider
         .when('/', {
             templateUrl: '../assets/templates/play.html',
-            controller: 'gameController'
+            controller: 'homeController'
         })
-        .when('/play', {
+        .when('/#!/play', {
             templateUrl: '../assets/templates/game.html',
             controller: 'gameController'
         }).otherwise({redirectTo: '/'}
