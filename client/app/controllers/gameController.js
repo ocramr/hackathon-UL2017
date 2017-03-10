@@ -38,7 +38,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                 $scope.categories = response.data.categories.items;
             });
         });
-
+    }
     $scope.selectCategory = function (category) {
       $scope.isPlaying = true;
       getSongs('pop');
