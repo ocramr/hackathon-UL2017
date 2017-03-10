@@ -1,5 +1,7 @@
 <?php
 
+namespace app;
+
 use Illuminate\Support\Manager;
 
 class AppInit
