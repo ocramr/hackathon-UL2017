@@ -1,7 +1,8 @@
 {
     "require": {
         "slim/slim": "^3.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "illuminate/database": "^5.4"
     },
     "autoload": {
         "psr-4": {
