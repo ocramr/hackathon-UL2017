@@ -33,12 +33,11 @@ $configuration['notFoundHandler'] = function ($c) {
 $c = new \Slim\Container($configuration);
 $app = new Slim\App($c);
 
-
 $app->group('/game', function (){
 
     $this->post('/play', GameController::class. ':play')->setName('play');
 
-});
+})->add('CORS');;
 
 
 $app->run();
