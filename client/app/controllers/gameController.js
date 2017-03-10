@@ -1,21 +1,24 @@
-angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$location" ,function ($scope, Spotify) {
+angular.module('spotyGame').controller('gameController', ["$scope", "$http", "Spotify", "$location",function ($scope, $http, Spotify) {
 
     $scope.position = 0;
     $scope.songs= [];
     $scope.isPlaying = false;
 
     var getSongs = function(category) {
-
-        $getRandomOffset = Math.floor((Math.random() * 1000) + 1);
-        $options = {
-            'limit' : '10',
-            'offset' : $getRandomOffset
-        };
-        Spotify.search('genre:'+category, 'track', $options).then(function (response) {
-            $scope.songs = response.data.tracks.items;
-            $scope.song = $scope.songs[$scope.position];    
-            
+        
+        $getRandomOffset = Math.floor((Math.random() * 10) + 1);
+        
+        Spotify.getCategoryPlaylists(category, {limit :'1'}).then(function(response){
+            Spotify.getPlaylistTracks(response.data.playlists.items[0].owner.id, response.data.playlists.items[0].id, 
+                                        {'limit':'10', offset:$getRandomOffset})
+            .then(function(response){
+                $scope.songs = response.data.items
+                $scope.song = $scope.songs[$scope.position]; 
+            })
         });
+
+
+        
     };
 
 
