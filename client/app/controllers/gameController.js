@@ -1,5 +1,7 @@
 angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$location" ,function ($scope, Spotify) {
 
+    $scope.isPlaying = false;
+
     var getSongs = function() {
 
         $getRandomOffset = Math.floor((Math.random() * 1000) + 1);
@@ -18,6 +20,10 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         });
 
         getSongs();
+    };
+
+    $scope.selectCategory = function (category) {
+      $scope.isPlaying = true;
     };
 
     initGame();
