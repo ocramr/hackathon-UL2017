@@ -1,4 +1,4 @@
-var app = angular.module('spotyGame', ['spotify', 'ngRoute']);
+var app = angular.module('spotyGame', ['spotify', 'ngRoute', 'ngAnimate']);
 
 app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProvider){
     $routeProvider

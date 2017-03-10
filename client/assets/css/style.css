@@ -5808,3 +5808,7 @@ button.close {
     display: none !important; } }
 
 /*# sourceMappingURL=style.css.map */
+
+#cat{
+  float: left;
+}

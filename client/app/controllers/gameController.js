@@ -2,15 +2,16 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     $scope.position = 0;
     $scope.songs= [];
+    $scope.isPlaying = false;
 
-    var getSongs = function() {
+    var getSongs = function(category) {
 
         $getRandomOffset = Math.floor((Math.random() * 1000) + 1);
         $options = {
             'limit' : '10',
             'offset' : $getRandomOffset
         };
-        Spotify.search('genre:pop', 'track', $options).then(function (response) {
+        Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.songs = response.data.tracks.items;
             $scope.song = $scope.songs[$scope.position];    
             
@@ -24,7 +25,12 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             console.log($scope.categories)
         });
 
-        getSongs();
+        
+    };
+
+    $scope.selectCategory = function (category) {
+      $scope.isPlaying = true;
+      getSongs(category.name);
     };
 
     initGame();
