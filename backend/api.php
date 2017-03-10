@@ -3,6 +3,7 @@ use app\AppInit;
 
 require_once '../vendor/autoload.php';
 
+use app\controller\GameController;
 
 AppInit::bootEloquent('../conf/conf.ini');
 
@@ -31,5 +32,13 @@ $configuration['notFoundHandler'] = function ($c) {
 
 $c = new \Slim\Container($configuration);
 $app = new Slim\App($c);
-require '../src/routes/route.php';
+
+
+$app->group('/game', function (){
+
+    $this->post('/play', GameController::class. ':play')->setName('play');
+
+});
+
+
 $app->run();
