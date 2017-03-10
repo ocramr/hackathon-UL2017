@@ -2,5 +2,5 @@
 .idea/
 composer.lock
 bower_components
-api/conf/*
+backend/conf/*
 client*/css/style.css.map
