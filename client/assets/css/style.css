@@ -5809,7 +5809,7 @@ button.close {
 
 /*# sourceMappingURL=style.css.map */
 
-#cat{
+.cat{
   float: left;
 }
 
@@ -5855,4 +5855,23 @@ a {
     border-top: 1px solid #696767;
     width: 100%;
 }
->>>>>>> 70e0d8ff70e873a197db5a437e5137bce00a3024
+
+#cat_container {
+  height: 275px;
+  width: 275px;
+  position: relative;
+  float:left;
+  margin:2px;
+}
+#cat_image {
+  position: absolute;
+}
+#cat_text {
+  z-index: 100;
+  position: absolute;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  top:70%;
+  left:35%;
+}

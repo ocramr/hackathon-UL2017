@@ -1,3 +1,11 @@
-<div ng-repeat="category in categories">
+<!--<div ng-repeat="category in categories">
     <img id="cat" src="{{category.icons[0].url}}" alt="{{category.name}}" class="img-thumbnail" ng-click="selectCategory(category)" ng-hide="isPlaying" class="ng-hide">
+</div>
+-->
+
+<div id="cat_container" ng-repeat="category in categories">
+  <img id="cat_image" src="{{category.icons[0].url}}" alt="{{category.name}}" class="img-thumbnail cat" ng-click="selectCategory(category)" ng-hide="isPlaying" class="ng-hide">
+  <p id="cat_text">
+    {{category.name}}
+  </p>
 </div>
