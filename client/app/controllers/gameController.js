@@ -6,14 +6,14 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.choices= [];
     $scope.isPlaying = false;
     $scope.score = 0;
+    
 
     var getSongs = function(category) {
 
         $getRandomOffset = Math.floor((Math.random() * 10) + 1);
         
         Spotify.getCategoryPlaylists(category, {limit :'1'}).then(function(response){
-            Spotify.getPlaylistTracks(response.data.playlists.items[0].owner.id, response.data.playlists.items[0].id, 
-                                        {'limit':'10', offset:$getRandomOffset})
+            Spotify.getPlaylistTracks(response.data.playlists.items[0].owner.id, response.data.playlists.items[0].id)
             .then(function(response){
                 $scope.songs = response.data.items;
                 createGame();
@@ -25,7 +25,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.song = $scope.songs[$scope.position];
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
-        getchoices('pop')
+        getchoices($scope.category.id)
     }
 
 
@@ -40,9 +40,11 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         });
     }
     $scope.selectCategory = function (category) {
+        $scope.category = category;
+       
       $scope.isPlaying = true;
-      getSongs('pop');
-      getchoices('pop');
+      getSongs(category.id);
+      getchoices(category.id);
     };
 
     getchoices = function(category)
