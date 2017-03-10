@@ -3,8 +3,8 @@
 </div>
 -->
 
-<div id="cat_container" ng-repeat="category in categories">
-  <img id="cat_image" src="{{category.icons[0].url}}" alt="{{category.name}}" class="img-thumbnail cat" ng-click="selectCategory(category)" ng-hide="isPlaying" class="ng-hide">
+<div id="cat_container" ng-repeat="category in categories" ng-hide="isPlaying" class="ng-hide">
+  <img id="cat_image" src="{{category.icons[0].url}}" alt="{{category.name}}" class="img-thumbnail cat" ng-click="selectCategory(category)" >
   <p id="cat_text">
     {{category.name}}
   </p>
