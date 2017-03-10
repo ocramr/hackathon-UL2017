@@ -6,14 +6,14 @@
         <iframe src="{{currentUserUri}}" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
     </div>
 </div>
-<div class="divbody">
-    <div ng-show="isPlaying">
-        <iframe ng-src="{{playUri}}"
-                width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-    </div>
-
-    <div ng-repeat="choice in choices" class="choice">
-        <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
+<div ng-show="isPlaying">
+    <div class="divbody">
+            <iframe ng-src="{{playUri}}"
+                    width="300" height="380" frameborder="0" allowtransparency="true">
+            </iframe>
+            <div ng-repeat="choice in choices" class="choice">
+                <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
+            </div>
     </div>
 </div>
 <categories></categories>
