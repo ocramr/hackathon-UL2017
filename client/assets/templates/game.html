@@ -2,5 +2,10 @@
 
 <p ng-click="checkAnswer()">{{song.name}}</p>
 
+<div ng-show="isPlaying">
+    <iframe ng-src="{{playUri}}"
+            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+</div>
+
 <categories></categories>
 

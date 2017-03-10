@@ -1,4 +1,4 @@
-angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$location" ,function ($scope, Spotify) {
+angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce",function ($scope, Spotify, $sce) {
 
     $scope.position = 0;
     $scope.songs= [];
@@ -13,7 +13,9 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         };
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.songs = response.data.tracks.items;
-            $scope.song = $scope.songs[$scope.position];    
+            console.log($scope.songs);
+            $scope.song = $scope.songs[$scope.position];
+            $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
             
         });
     };
@@ -30,7 +32,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     $scope.selectCategory = function (category) {
       $scope.isPlaying = true;
-      console.log(category)
       getSongs(category.id);
     };
 
