@@ -30,7 +30,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     $scope.selectCategory = function (category) {
       $scope.isPlaying = true;
-      getSongs(category.name);
+      console.log(category)
+      getSongs(category.id);
     };
 
     initGame();
