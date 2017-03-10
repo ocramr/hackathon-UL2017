@@ -6,4 +6,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule . api.php [QSA,L]
+RewriteRule . rest/api.php [QSA,L]
