@@ -5812,3 +5812,34 @@ button.close {
 #cat{
   float: left;
 }
+#track-name {
+    display: none !important;
+}
+.header{
+  margin-top: 25px;
+}
+.header h1
+{
+  color : #fff;
+}
+a {
+  color : #fff;
+}
+
+.divbody {
+    width: 45%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 18px;
+    background-color: black;
+}
+
+.choice {
+    color: lightgray;
+    font-weight: bold;
+    padding: 10px;
+    border-top: 1px solid #696767;
+    width: 100%;
+}

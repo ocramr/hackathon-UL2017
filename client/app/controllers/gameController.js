@@ -30,7 +30,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
         Spotify.getCurrentUser().then(function (response) {
             $scope.currentUser = response.data;
-            $scope.currentUserUri = $sce.trustAsResourceUrl("https://embed.spotify.com/follow/1/?uri=spotify%3Auser%3A"+$scope.currentUser.id+"&size=detail&theme=light");
+            $scope.currentUserUri = $sce.trustAsResourceUrl("https://embed.spotify.com/follow/1/?uri=spotify%3Auser%3A"+$scope.currentUser.id+"&size=detail&theme=dark");
             Spotify.getCategories({}).then(function (response) {
                 $scope.categories = response.data.categories.items;
             });

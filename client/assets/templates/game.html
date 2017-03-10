@@ -1,21 +1,20 @@
-<h1>Categories</h1>
-
-<div class="row" ng-if="currentUser">
-    <div class="col-4-">
-        <iframe ng-src={{currentUserUri}} width="300"
-                height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+<div class="row header" ng-if="currentUser">
+    <div class="col-lg-8">
+        <h1>Categories</h1>
+    </div>
+    <div class="col-lg-4">
+        <iframe src="{{currentUserUri}}" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
     </div>
 </div>
-<p ng-click="checkAnswer()">{{song.name}}</p>
+<div class="divbody">
+    <div ng-show="isPlaying">
+        <iframe ng-src="{{playUri}}"
+                width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+    </div>
 
-<div ng-show="isPlaying">
-    <iframe ng-src="{{playUri}}"
-            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+    <div ng-repeat="choice in choices" class="choice">
+        <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
+    </div>
 </div>
-
-<div ng-repeat="choice in choices">
-    <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
-</div>
-
 <categories></categories>
 
