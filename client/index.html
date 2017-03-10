@@ -8,7 +8,19 @@
     <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/homeStyle.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    
+      <script>
+        window.onload = function () {
+        var hash = window.location.hash;
+        if (window.location.search.substring(1).indexOf("error") !== -1) {
+            // login failure
+            window.close();
+        } else if (hash) {
+            // login success
+            var token = window.location.hash.split('&')[0].split('=')[1];
+            localStorage.setItem('spotify-token', token);
+        }
+        }
+  </script>
 </head>
 <body ng-app="spotyGame" class="container">
     <div ng-view></div>
