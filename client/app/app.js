@@ -1,5 +1,5 @@
 var app = angular.module('spotyGame', ['spotify', 'ngRoute', 'ngAnimate']);
-app.constant('BACKEND_URL', 'http://backend.spotyplay.local/game/play');
+app.constant('BACKEND_URL', 'http://backend.spotyplay.local/api.php/');
 app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProvider){
     $routeProvider
         .when('/', {
@@ -18,8 +18,8 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
     $locationProvider.html5Mode(true);
 
     $logProvider.debugEnabled(true);
-  SpotifyProvider.setClientId('e3cd640ff09c48789ea6708e8187cee0');
-  SpotifyProvider.setRedirectUri('http://spotyplay.local/#!/play');
-  SpotifyProvider.setScope('playlist-read-private');
+    SpotifyProvider.setClientId('e3cd640ff09c48789ea6708e8187cee0');
+    SpotifyProvider.setRedirectUri('http://spotyplay.local/#!/play');
+    SpotifyProvider.setScope('playlist-read-private');
 });
     
