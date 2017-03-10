@@ -9,8 +9,10 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
         .when('/play', {
             templateUrl: '../assets/templates/game.html',
             controller: 'gameController'
-        }).otherwise({redirectTo: '/sdsd'}
+        }).otherwise({redirectTo: '/'}
     );
+
+    $locationProvider.html5Mode(true);
 
     $logProvider.debugEnabled(true);
   SpotifyProvider.setClientId('e3cd640ff09c48789ea6708e8187cee0');
