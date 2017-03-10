@@ -4,9 +4,9 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.songs= [];
     $scope.choices= [];
     $scope.isPlaying = false;
+    $scope.score = 0;
 
     var getSongs = function(category) {
-
         $getRandomOffset = Math.floor((Math.random() * 1000) + 1);
         $options = {
             'limit' : '10',
@@ -14,19 +14,22 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         };
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.songs = response.data.tracks.items;
-            $scope.song = $scope.songs[$scope.position];
-            $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
-            
+            createGame();
         });
     };
+
+    var createGame = function()
+    {
+        $scope.song = $scope.songs[$scope.position];
+        $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
+        getchoices('pop')
+    }
 
 
     var initGame = function () {
         Spotify.getCategories({}).then(function (response) {
             $scope.categories = response.data.categories.items;
         });
-
-        
     };
 
     $scope.selectCategory = function (category) {
@@ -46,6 +49,16 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             $scope.choices = response.data.tracks.items;
             $scope.choices.push($scope.song)
         });
+    }
+
+    $scope.checkChoice = function(id)
+    {
+        $scope.position = $scope.position+1;
+        createGame();
+        if($scope.song.id == id)
+        {
+            $scope.score = $scope.score + 1;
+        }
     }
     initGame();
 }]);
