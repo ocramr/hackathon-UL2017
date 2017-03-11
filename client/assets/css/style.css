@@ -5921,8 +5921,6 @@ timer
     color: lightblue;
     padding: 14px;
     opacity: 0.7;
-    height: 480px;
-    overflow: scroll;
 }
 .sidebar div {
     border-bottom: 1px solid lightblue;
@@ -5940,5 +5938,20 @@ timer
     padding: 42px;
     opacity: 0.8;
     margin-top: 10px;
-        overflow: hidden;
+    overflow: hidden;
+}
+
+a.play{
+    margin-left: 40%;
+    width: 245Px;
+    border-radius: 11px;
+    background-color: black;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.logo-img{
+    margin-left: 47%;
+    margin-top: 17%;
+    margin-bottom: 20px;
 }

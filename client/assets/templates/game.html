@@ -13,7 +13,8 @@
         <span>{{ranking.Pseudo}}, Score : {{ranking.Score}}, Durée : {{ranking.Duration}}</span>
     </div>
 </div>
-<div class="content-page">
+<div class="content-page" ng-show="isPlaying"   >
+    <h3 style="color: #fff;">Score : {{score}}</h3>
     <timer id="mytimer" interval="1000" countdown="150">{{countdown}}</timer>
 <div class="row share-bt">
             <button class="btn btn-medium font-bold"
