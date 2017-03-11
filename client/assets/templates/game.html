@@ -29,7 +29,7 @@
                     width="300" height="380" frameborder="0" allowtransparency="true">
             </iframe>
             <div ng-repeat="choice in choices | orderBy:random " class="choice">
-                <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
+                <span ng-click="checkChoice(choice.track.id)">{{choice.track.name}}</span>
             </div>
     </div>
 </div>
