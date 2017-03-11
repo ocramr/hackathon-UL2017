@@ -6,13 +6,16 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
         .when('/', {
             templateUrl: '../assets/templates/play.html',
             controller: 'homeController'
+        }).when('/play/:gameId?', {
+            templateUrl: '../assets/templates/game.html',
+            controller: 'gameController'
         })
-        .when('/#!/play', {
-            templateUrl: '../assets/templates/game.html',
+        .when('/scores', {
+            templateUrl: '../assets/templates/finish.html',
             controller: 'gameController'
-        }).when('/play', {
-            templateUrl: '../assets/templates/game.html',
-            controller: 'gameController'
+        }).when('/join/:gameId', {
+        templateUrl: '../assets/templates/play.html',
+        controller: 'homeController'
     }).otherwise({redirectTo: '/'}
     );
 

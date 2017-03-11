@@ -1,6 +1,9 @@
-<div class="col-xs-4">
-    <div class="logo">
-        <img src="assets/images/logo.png">
+<div class="container" id="marg">
+<div class="row">
+    <div class="col-md-6 " ng-repeat="game in games" >
+        <p class="alert alert-success">{{game.name}} <strong>{{game.owner}}</strong></p>
     </div>
-    <a href="#" class="btn btn-lg btn-block play-btn" ng-click="login()"  >Play</a>
+    <div class="col-md-12">
+        <a href="#" class="btn btn-lg btn-block btn-primary" ng-click="login()"  >Play</a>
+    </div>
 </div>
