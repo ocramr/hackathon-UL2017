@@ -6,6 +6,20 @@
         <iframe src="{{currentUserUri}}" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
     </div>
 </div>
+<div class="row share-bt">
+            <button class="btn btn-medium font-bold"
+                    socialshare
+                    socialshare-provider="facebook"
+                    socialshare-type="send"
+                    socialshare-via="145634995501895"
+                    socialshare-url="http://spotyplay.local/play"
+                    socialshare-redirect-uri="http://google.fr"
+                    socialshare-popup-height="500"
+                    socialshare-popup-width="800"
+                    socialshare-trigger="click">
+                <i class="fa fa-facebook"></i> More fun with a friend
+            </button>
+</div>
 <div ng-show="isPlaying">
     <div class="divbody">
             <iframe ng-src="{{playUri}}"

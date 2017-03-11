@@ -1,7 +1,8 @@
-var app = angular.module('spotyGame', ['spotify', 'ngRoute', 'ngAnimate']);
+var app = angular.module('spotyGame', ['spotify', 'ngRoute', 'ngAnimate', '720kb.socialshare']);
 app.constant('BACKEND_URL', 'http://backend.spotyplay.local/game/play');
 
 app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProvider){
+    $locationProvider.html5Mode(true).hashPrefix('!');
     $routeProvider
         .when('/', {
             templateUrl: '../assets/templates/play.html',
