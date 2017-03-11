@@ -107,6 +107,19 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             console.log(error);
         });
     }
+
+    $scope.$on('timer-tick', function (event, data) {
+        console.log(data.millis)
+            if(data.millis === 0 )
+            {
+                angular.element('#gameover').modal('show');
+            }
+    });
+
+    $scope.redirect_gameover = function()
+    {
+        window.location.href = "http://spotyplay.local";
+    }
     initGame();
 }]);
 
