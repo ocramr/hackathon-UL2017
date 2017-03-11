@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use app\util\Constants;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -9,8 +10,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use app\model\Player;
 use app\model\Game;
 use app\model\Song;
-use app\model\Game_Song;
-use app\model\Game_Player;
 
 class GameController extends AbstractController
 {
@@ -34,31 +33,27 @@ class GameController extends AbstractController
             $game = new Game();
             $game->name = filter_var($data['gameName'], FILTER_SANITIZE_STRING);
             $game->owner = $player->spotify_id;
+            $game->status = Constants::GAME_STARTED_SINGLE_PLAYER;
+            $game->score = 0;
             $game->save();
 
     		foreach ($data["songs"] as $song) {
     		    $newSong = Song::find($song['id']);
     		    if(is_null($newSong)){
                     $newSong = new Song();
-                    $newSong->id = filter_var($song['id'], FILTER_SANITIZE_STRING);
+                    $newSong->spotify_id = filter_var($song['id'], FILTER_SANITIZE_STRING);
                     $newSong->name = filter_var($song['name'], FILTER_SANITIZE_STRING);
                     $newSong->url = filter_var($song['uri'], FILTER_SANITIZE_STRING);
                     $newSong->preview_url = filter_var($song['preview_url'], FILTER_SANITIZE_STRING);
                     $newSong->save();
                 }
                 $newSong->games()->attach($game);
-    			/*$game_song = new Game_Song();
-    			$game_song->id_game = $game->id;
-    			$game_song->id_song = $newSong->id;*/
     			$newSong->save();
     		}
-
-    		$game_player = new Game_Player();
-    		$game_player->id_game = $game->id;
-    		$game_player->id_player = filter_var($data['owner'], FILTER_SANITIZE_STRING);
-    		$game_player->save();
-
-    		return $this->json_success($response, 200, json_encode($game));
+            $game->players()->attach($player);
+    		$game->save();
+            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
+    		return $this->json_success($response, 200, json_encode($tab));
 
     	} catch (ModelNotFoundException $mne) {
     		return $this->json_error($response, 404, "Not found");
