@@ -1,7 +1,7 @@
 <div class="container" id="marg">
 <div class="row">
     <div class="col-md-6 " ng-repeat="game in games" >
-        <p class="alert alert-success">{{game.name}} <strong>{{game.owner}}</strong></p>
+        <a href="http://spotiplay.local/join/{{game.players[0].id}}"><p class="alert alert-success">{{game.name}} <strong>{{game.owner}}</strong></p></a>
     </div>
     <div class="col-md-12">
         <a href="#" class="btn btn-lg btn-block btn-primary" ng-click="login()"  >Play</a>
