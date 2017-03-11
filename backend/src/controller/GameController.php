@@ -110,6 +110,7 @@ class GameController extends AbstractController
             }
             $player = Player::where('id', '=', filter_var($data['player'], FILTER_SANITIZE_STRING))->firstOrfail();
             $game->players()->updateExistingPivot($player, array('score' => $data['score']), false);
+            $game->save();
             return $this->json_success($response, 200, json_encode(""));
         }
         catch (ModelNotFoundException $mne) {
