@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `state` enum('0','1','','') NOT NULL DEFAULT '0',
-  `owner` int(11) NOT NULL,
+  `owner` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `owner` (`owner`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;

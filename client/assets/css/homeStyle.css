@@ -11,3 +11,7 @@ body {
 	background-color: black;
 	color: #fff;
 }
+
+iframe .info #track-name{
+	display: none; !important;
+}
