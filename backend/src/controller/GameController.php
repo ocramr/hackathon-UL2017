@@ -33,8 +33,7 @@ class GameController extends AbstractController
             $game = new Game();
             $game->name = filter_var($data['gameName'], FILTER_SANITIZE_STRING);
             $game->owner = $player->spotify_id;
-            $game->status = Constants::GAME_STARTED_SINGLE_PLAYER;
-            $game->score = 0;
+            $game->state = Constants::GAME_STARTED_SINGLE_PLAYER;
             $game->save();
 
     		foreach ($data["songs"] as $song) {
@@ -50,7 +49,7 @@ class GameController extends AbstractController
                 $newSong->games()->attach($game);
     			$newSong->save();
     		}
-            $game->players()->attach($player);
+            $game->players()->attach($player->id, ['score'=>0]);
     		$game->save();
             $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
     		return $this->json_success($response, 201, json_encode($tab));
@@ -79,7 +78,7 @@ class GameController extends AbstractController
             if($game->state != Constants::GAME_END_SINGLE_PLAYER){
                 throw new \Exception("First player must end game first");
             }
-            $game->players()->attach($player);
+            $game->players()->attach($player->id, ['score'=>0]);
             $game->state = Constants::GAME_STARTED_OTHER_PLAYER;
             $game->save();
             $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
