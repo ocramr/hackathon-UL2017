@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `name` varchar(45) DEFAULT NULL,
   `state` int NOT NULL DEFAULT '0',
   `owner` varchar(20) NOT NULL,
+  `category` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `owner` (`owner`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
