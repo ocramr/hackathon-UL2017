@@ -99,11 +99,11 @@ class GameController extends AbstractController
         {
             $game = Game::where('id', '=', filter_var($data['game'], FILTER_SANITIZE_STRING))->firstOrfail();
             switch ($game->state) {
-                case GAME_STARTED_SINGLE_PLAYER :
-                    $game->state = GAME_END_SINGLE_PLAYER;
+                case Constants::GAME_STARTED_SINGLE_PLAYER :
+                    $game->state = Constants::GAME_END_SINGLE_PLAYER;
                     break;
-                case GAME_STARTED_OTHER_PLAYER :
-                    $game->state = GAME_END_OTHER_PLAYER;
+                case Constants::GAME_STARTED_OTHER_PLAYER :
+                    $game->state = Constants::GAME_END_OTHER_PLAYER;
                     break;
                 default :
                     return $this->json_error($response, 403, "State not valid");
