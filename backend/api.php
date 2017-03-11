@@ -41,6 +41,8 @@ $app->group('/game', function (){
 
     $this->post('/play', GameController::class. ':play')->setName('play');
 
+    $this->put('/joinGame/id', GameController::class. ':joinGame')->setName('play');
+
 })->add('CORS');
 
 
