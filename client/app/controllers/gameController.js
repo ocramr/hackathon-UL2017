@@ -27,6 +27,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         $scope.song = $scope.songs[$scope.position];
         console.log($scope.song);
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
+        getChoices('pop');
     };
 
     var createGame = function () {
