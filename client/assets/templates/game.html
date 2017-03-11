@@ -24,12 +24,12 @@
             <video hidden controls autoplay name="media" ng-src="{{song.track.preview_url}}"></video>
 
             <div class="col-md-6">
-                 <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[0].id)">{{choices[0].name}}</button>
-                  <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[1].id)">{{choices[1].name}}</button>
+                 <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[0].track.id)">{{choices[0].track.name}}</button>
+                  <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[1].track.id)">{{choices[1].track.name}}</button>
             </div>    
             <div class="col-md-6">
-             <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[2].id)">{{choices[2].name}}</button>
-              <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choics[3].id)">{{choices[3].name}}</button>
+             <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[2].track.id)">{{choices[2].track.name}}</button>
+              <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choics[3].track.id)">{{choices[3].track.name}}</button>
             </div>    
         <timer id="mytimer" interval="1000" countdown="150">{{countdown}}</timer>
 </div>

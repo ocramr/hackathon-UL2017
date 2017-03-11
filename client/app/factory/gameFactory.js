@@ -7,7 +7,10 @@ angular.module('spotyGame').factory('GameFactory', ['BACKEND_URL','$http',functi
         
         finishGame:function(json) {
             return $http.post(BACKEND_URL+'game/finish', json);
+        },
 
+        allGames:function(){
+            return $http.get(BACKEND_URL+'games');
         }
     }
 

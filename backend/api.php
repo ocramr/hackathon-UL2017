@@ -46,5 +46,7 @@ $app->group('/game', function (){
 
 })->add('CORS');
 
+$app->get('/games', GameController::class. ':allGames')->setName('allGames')->add('CORS');
+
 
 $app->run();

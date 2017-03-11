@@ -20,6 +20,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                     loadNewSong();
                     $scope.choices = response.data.items.slice(10,13);
                     $scope.choices.push($scope.song);
+                    console.log($scope.choices);
                     createGame();
                 })
         });
@@ -28,8 +29,10 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     var loadNewSong = function()
     {
         $scope.song = $scope.songs[$scope.position];
-        console.log($scope.song);
-        $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:track:"+$scope.song.track.id);
+        console.log($scope.song.track.preview_url); 
+        $scope.playUri = $scope.song.track.preview_url;
+        //$scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
+        getChoices('pop');
     };
 
     var createGame = function () {
@@ -37,6 +40,9 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         $scope.songs.forEach(function (e) {
             songsToSend.push(new Song(e.track));
         });
+        $scope.playUri = $scope.song.track.preview_url;
+         //$scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
+            $scope.isPlaying = true;
         console.log("yo send");
         console.log(songsToSend);
         GameFactory.startGame({
@@ -46,7 +52,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "songs": songsToSend
         }).then(function (response) {
             $scope.game = response.data;
-            $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
+            $scope.playUri = $scope.song.track.preview_url;
+            //$scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
             $scope.isPlaying = true;
         }, function (error) {
             console.log(error);
