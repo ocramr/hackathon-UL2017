@@ -90,7 +90,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             }
             loadNewSong();
         }else{
-            //Ecran terminé
+            $scope.finish()
             console.log("terminé");
         }
 
