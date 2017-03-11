@@ -109,7 +109,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.finish = function(){
-        angular.element('#gameover').modal('show');
         GameFactory.finishGame({game : $scope.game.id,  score : $scope.score, player: $scope.game.player.id})
         .then(function(response){
             console.log(response);
