@@ -26,7 +26,7 @@
             <iframe ng-src="{{playUri}}"
                     width="300" height="380" frameborder="0" allowtransparency="true">
             </iframe>
-            <div ng-repeat="choice in choices" class="choice">
+            <div ng-repeat="choice in choices | orderBy:random " class="choice">
                 <span ng-click="checkChoice(choice.id)">{{choice.name}}</span>
             </div>
     </div>
