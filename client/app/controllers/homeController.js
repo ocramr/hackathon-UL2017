@@ -1,4 +1,6 @@
-angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "$location" ,function ($scope, Spotify, $location) {
+angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "$location" ,"GameFactory",function ($scope, Spotify, $location, GameFactory) {
+
+    $scope.games = [];
 
     $scope.login = function () {
         Spotify.login().then(function (data) {
@@ -9,4 +11,13 @@ angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "
         })
     };
 
+    var getGames = function(){
+        GameFactory.allGames().then(function(response){
+            $scope.games = response.data;
+            console.log($scope.games);
+        },function(error){
+            console.log(error)
+        });
+    }
+    getGames();
 }]);

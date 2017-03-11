@@ -5849,12 +5849,15 @@ a {
     background-color: black;
 }
 
-.choice {
-    color: lightgray;
-    font-weight: bold;
-    padding: 10px;
-    border-top: 1px solid #696767;
-    width: 100%;
+#response{
+  font-size: 22px;
+  font-weight: bold;
+  padding: 50px;
+  margin-top: 10px;
+}
+
+#marg{
+  margin-top: 20px;
 }
 
 #cat_container {

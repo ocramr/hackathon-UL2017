@@ -14,6 +14,11 @@ use app\model\Song;
 class GameController extends AbstractController
 {
 
+    public function allGames(Request $request, Response $response, $args){
+        $data = Game::with('players')->limit(10)->get();
+        return $this->json_success($response, 200, json_encode($data));
+    }
+
     public function play(Request $request, Response $response, $args)
     {
     	try 
