@@ -1,14 +1,23 @@
-angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song",  function ($scope, Spotify, $sce, GameFactory, Song) {
+angular.module('spotyGame').controller('gameController', ["$rootScope","$scope" ,"Spotify", "$sce", "GameFactory", "Song",  function ($rootScope,$scope, Spotify, $sce, GameFactory, Song) {
 
     $scope.position = 0;
+    $scope.rankings = []
     $scope.songs= [];
     $scope.choices= [];
     $scope.isPlaying = false;
     $scope.score = 0;
     $scope.game = {};
     $scope.player = {};
+    
     var categoryId;
 
+        GameFactory.rankings().then(function(response) {
+                $scope.rankings = response.data        
+        },function(error){
+            console.log(error)
+        });
+    
+    
     var getSongs = function(category) {
         var $getRandomOffset = Math.floor((Math.random() * 10) + 1);
 
@@ -20,6 +29,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                     loadNewSong();
                     $scope.choices = response.data.items.slice(10,13);
                     $scope.choices.push($scope.song);
+                    $scope.choices.sort(function(a, b){return 0.5 - Math.random()});
                     createGame();
                 })
         });
@@ -118,6 +128,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             console.log(error);
         });
     }
+
+    
 
     $scope.$on('timer-tick', function (event, data) {
             if(data.millis === 0 )

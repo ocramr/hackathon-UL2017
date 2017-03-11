@@ -1,5 +1,10 @@
 <div ng-include="'GameOverModal.html'"></div>
 <div ng-include="'FinishGame.html'"></div>
+<div class="sidebar" ng-show="isPlaying">
+    <div ng-repeat = "ranking in rankings">
+        <span>{{ranking.Pseudo}}, Score : {{ranking.Score}}, Durée : {{ranking.Duration}}</span>
+    </div>
+</div>
 <div class="row header" ng-if="currentUser">
     <div class="col-lg-8">
         <img src="assets/images/logo.png">

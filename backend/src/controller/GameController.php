@@ -118,4 +118,29 @@ class GameController extends AbstractController
             return $this->json_error($response, 404, "Not found");
         }
     }
+
+    public function rankings($request, $response, $args)
+    {
+        $data = $request->getParsedBody();
+        try
+        {
+            $games = Game::limit(30)->get();
+            foreach($games as $game)
+            {
+                foreach($game->players as $player)
+                {   
+                    $array[] = array(
+                        'Pseudo' => $player->pseudo,
+                        'Score' => $player->pivot->score,
+                        'Duration' => $player->pivot->duration
+                    );
+                }
+            }
+            
+            return $this->json_success($response, 200, json_encode($array));
+        }
+        catch (ModelNotFoundException $mne) {
+            return $this->json_error($response, 404, "Not found");
+        }
+    }
 }
