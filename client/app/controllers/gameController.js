@@ -5,6 +5,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.choices= [];
     $scope.isPlaying = false;
     $scope.score = 0;
+    $scope.game = {};
 
     var getSongs = function(category) {
          $getRandomOffset = Math.floor((Math.random() * 10) + 1);
@@ -15,7 +16,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
              .then(function(response){
                  $scope.songs = response.data.items
                  loadNewSong()
-                 getChoices('pop');
+                 getChoices(category);
              })
           });
     };
@@ -24,7 +25,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.song = $scope.songs[$scope.position];
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
-        getChoices('pop');
     };
 
     var createGame = function () {
@@ -41,6 +41,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "songs": songsToSend
         }).then(function (response) {
             console.log(response.data);
+            $scope.game = response.data;
             $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
             $scope.isPlaying = true;
         }, function (error) {
@@ -90,21 +91,19 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             }
             loadNewSong();
         }else{
-            $scope.finish()
-            console.log("terminé");
+            $scope.finish();
         }
 
     };
 
-    $scope.finish = function(game){
-        GameFactory.finishGame({game : game.id,  score : $scope.score})
+    $scope.finish = function(){
+        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score})
         .then(function(response){
             console.log(response);
         },function(error){
             console.log(error);
         });
     }
-
 
     initGame();
 }]);
