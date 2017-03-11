@@ -72,7 +72,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         };
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.choices = response.data.tracks.items;
-            $scope.choices.push($scope.song);
+            $scope.choices.push($scope.song.track);
             console.log($scope.choices)
             createGame();
         });
