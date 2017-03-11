@@ -1,11 +1,17 @@
-angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "$location" ,"GameFactory",function ($scope, Spotify, $location, GameFactory) {
+angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "$location", "$routeParams", "GameFactory", function ($scope, Spotify, $location, $routeParams, GameFactory) {
 
-    $scope.games = [];
+    if($routeParams.gameId){
+        console.log($routeParams.gameId);
+    }
 
     $scope.login = function () {
         Spotify.login().then(function (data) {
             console.log("You are now logged in");
-            $location.url('/play');
+            if($routeParams.gameId){
+                $location.url('/play/'+$routeParams.gameId);
+            }else{
+                $location.url('/play');
+            }
         }, function () {
             console.log('didn\'t log in');
         })
@@ -18,6 +24,6 @@ angular.module('spotyGame').controller('homeController', ["$scope" ,"Spotify", "
         },function(error){
             console.log(error)
         });
-    }
+    };
     getGames();
 }]);
