@@ -23,6 +23,7 @@
 <div ng-show="isPlaying">
         <timer id="mytimer" interval="1000" countdown="150">{{countdown}}</timer>
     <div class="divbody">
+            <div class="score"><span>Score : {{score}}</span></div>
             <iframe ng-src="{{playUri}}"
                     width="300" height="380" frameborder="0" allowtransparency="true">
             </iframe>

@@ -5896,3 +5896,9 @@ timer
     padding-right: 20px;
     font-size: 18px;
 }
+
+.score {
+    font-size: x-large;
+    color: aliceblue;
+    margin-bottom: 8px;
+}

@@ -88,7 +88,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.position = $scope.position+1;
         if($scope.position < $scope.songs.length){
-            if($scope.song.id == id)
+            if($scope.song.track.id == id)
             {
                 $scope.score = $scope.score + 1;
             }
@@ -107,7 +107,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             console.log(error);
         });
     }
-
     initGame();
 }]);
 
