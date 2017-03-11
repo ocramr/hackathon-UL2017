@@ -51,7 +51,7 @@ class GameController extends AbstractController
     		}
             $game->players()->attach($player->id, ['score'=>0]);
     		$game->save();
-            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
+            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "player"=>$player, "songs"=>$game->songs];
     		return $this->json_success($response, 201, json_encode($tab));
 
     	} catch (ModelNotFoundException $mne) {
@@ -81,7 +81,7 @@ class GameController extends AbstractController
             $game->players()->attach($player->id, ['score'=>0]);
             $game->state = Constants::GAME_STARTED_OTHER_PLAYER;
             $game->save();
-            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
+            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "player"=>$player, "songs"=>$game->songs];
             return $this->json_success($response, 200, json_encode($tab));
 
         } catch (ModelNotFoundException $mne) {
@@ -108,9 +108,10 @@ class GameController extends AbstractController
                 default :
                     return $this->json_error($response, 403, "State not valid");
             }
-            $game->pivot->score = filter_var($data['score'], FILTER_SANITIZE_NUMBER_INT);
-            $game->pivot->save();
-            return $this->json_success($response, 201, json_encode(null));
+            $player = Player::where('id', '=', filter_var($data['player'], FILTER_SANITIZE_STRING))->firstOrfail();
+            $game->players()->updateExistingPivot($player, array('score' => $data['score']), false);
+            $game->save();
+            return $this->json_success($response, 200, json_encode(""));
         }
         catch (ModelNotFoundException $mne) {
             return $this->json_error($response, 404, "Not found");
