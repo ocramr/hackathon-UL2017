@@ -17,7 +17,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                  $scope.songs = response.data.items;
                  console.log($scope.songs);
                  loadNewSong();
-                 getChoices(category);
+                 getChoices('pop');
              })
           });
     };
