@@ -66,7 +66,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     var getChoices = function(category)
     {
-        $getRandomOffset = Math.floor((Math.random() * 1000) + 1);
+        $getRandomOffset = Math.floor((Math.random() * 10) + 1);
         $options = {
             'limit' : '3',
             'offset' : $getRandomOffset
