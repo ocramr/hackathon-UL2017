@@ -111,7 +111,7 @@ class GameController extends AbstractController
                     return $this->json_error($response, 403, "State not valid");
             }
 
-            $player = Player::where('id', '=', filter_var($data['player'], FILTER_SANITIZE_STRING))->firstOrfail();
+            $player = Player::where('spotify_id', '=', filter_var($data['player'], FILTER_SANITIZE_STRING))->firstOrfail();
             $game->players()->updateExistingPivot($player->id, array('score' => $data['score']), true);
             $game->players()->updateExistingPivot($player->id, array('duration' => $data['duration']), true);
             $game->save();
