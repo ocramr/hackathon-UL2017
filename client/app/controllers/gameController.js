@@ -14,6 +14,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         };
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.songs = response.data.tracks.items;
+            loadNewSong();
             getChoices('pop');
         });
     };
@@ -23,7 +24,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         $scope.song = $scope.songs[$scope.position];
         console.log($scope.song);
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
-    }
+    };
 
     var createGame = function () {
         var songsToSend = [];
@@ -37,7 +38,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "songs": songsToSend
         }).then(function (response) {
             console.log(response.data);
-            loadNewSong();
             $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
             $scope.isPlaying = true;
         }, function (error) {
@@ -71,6 +71,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.choices = response.data.tracks.items;
             $scope.choices.push($scope.song);
+            console.log($scope.choices);
             createGame();
         });
     };
@@ -78,11 +79,17 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.checkChoice = function(id)
     {
         $scope.position = $scope.position+1;
-        if($scope.song.id == id)
-        {
-            $scope.score = $scope.score + 1;
+        if($scope.position < $scope.songs.length){
+            if($scope.song.id == id)
+            {
+                $scope.score = $scope.score + 1;
+            }
+            loadNewSong();
+        }else{
+            //Ecran terminé
+            console.log("terminé");
         }
-        loadNewSong();
+
     };
 
     initGame();
