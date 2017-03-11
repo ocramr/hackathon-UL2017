@@ -1,5 +1,5 @@
-angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song", function ($scope, Spotify, $sce, GameFactory, Song) {
-
+angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song",  function ($scope, Spotify, $sce, GameFactory, Song) {
+    
     $scope.position = 0;
     $scope.songs= [];
     $scope.choices= [];
