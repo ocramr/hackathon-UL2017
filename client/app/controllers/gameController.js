@@ -87,7 +87,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             $scope.choices = response.data.tracks.items;
             $scope.choices.push($scope.song.track);
             $scope.choices.sort(function(a, b){return 0.5 - Math.random()});
-            createGame();
+            //createGame();
         });
     };
 
@@ -108,13 +108,18 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.finish = function(){
-         $scope.current= angular.element("#mytimer")[0]['innerHTML'];
-         var duration = 150 - $scope.current/1000;
-        GameFactory.finishGame({game : $scope.game.id, duration : duration , score : $scope.score, player: $scope.game.player.id})
-        .then(function(response){
+        $scope.current = angular.element("#mytimer")[0]['innerHTML'];
+        var duration = 150 - ($scope.current / 1000);
+        GameFactory.finishGame({
+            "game" : $scope.game.id, 
+            "duration" : duration , 
+            "score" : $scope.score, 
+            "player": $scope.game.player.id
+        })
+        .then( function(response){
             angular.element('#finish').modal('show');
-            console.log($scope.songs)
-        },function(error){
+            console.log(response);
+        }, function(error){
             console.log(error);
         });
     }

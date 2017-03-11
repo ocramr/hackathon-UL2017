@@ -49,7 +49,7 @@ class GameController extends AbstractController
                 $newSong->games()->attach($game);
     			$newSong->save();
     		}
-            $game->players()->attach($player->id, ['score'=>0]);
+            $game->players()->attach($player->id, ['score'=> 5]);
     		$game->save();
             $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "player"=>$player, "songs"=>$game->songs];
     		return $this->json_success($response, 201, json_encode($tab));
@@ -108,11 +108,12 @@ class GameController extends AbstractController
                 default :
                     return $this->json_error($response, 403, "State not valid");
             }
+
             $player = Player::where('id', '=', filter_var($data['player'], FILTER_SANITIZE_STRING))->firstOrfail();
-            $game->players()->updateExistingPivot($player, array('score' => $data['score']), false);
-            $game->players()->updateExistingPivot($player, array('duration' => $data['duration']), false);
+            $game->players()->updateExistingPivot($player->id, array('score' => $data['score']), true);
+            $game->players()->updateExistingPivot($player->id, array('duration' => $data['duration']), true);
             $game->save();
-            return $this->json_success($response, 200, json_encode(""));
+            return $this->json_success($response, 200, json_encode($data));
         }
         catch (ModelNotFoundException $mne) {
             return $this->json_error($response, 404, "Not found");
