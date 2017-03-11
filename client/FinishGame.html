@@ -1,0 +1,24 @@
+<div class="modal fade" id="finish" role="dialog" >
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Fin de la partie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div>
+                        <h3>Score : {{score}}</h3>
+                    </div>
+                    <div>
+                        <h3>Les chansons que nous avons choisit pour cette partie : </h3>
+                        <div class="played-tracks"><span ng-repeat="s in songs">{{s.track.name}}</span></div>
+                    </div>      
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

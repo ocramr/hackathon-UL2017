@@ -7,9 +7,10 @@ body {
 }
 
 .play-btn {
-	margin: 100%;
+	margin-left: 100%;
 	background-color: black;
 	color: #fff;
+	margin-right: 100%;
 }
 
 iframe .info #track-name{

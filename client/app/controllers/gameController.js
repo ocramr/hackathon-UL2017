@@ -33,6 +33,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         $scope.playUri = $scope.song.track.preview_url;
         //$scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
         getChoices('pop');
+
     };
 
     var createGame = function () {
@@ -105,7 +106,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.position = $scope.position+1;
         if($scope.position < $scope.songs.length){
-            if($scope.song.id == id)
+            if($scope.song.track.id == id)
             {
                 $scope.score = $scope.score + 1;
             }
@@ -118,13 +119,28 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.finish = function(){
-        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score, player: $scope.game.player.id})
-            .then(function(response){
-                console.log(response);
-            },function(error){
-                console.log(error);
-            });
-    };
+         $scope.current= angular.element("#mytimer")[0]['innerHTML'];
+         var duration = 150 - $scope.current/1000;
+        GameFactory.finishGame({game : $scope.game.id, duration : duration , score : $scope.score, player: $scope.game.player.id})
+        .then(function(response){
+            angular.element('#finish').modal('show');
+            console.log($scope.songs)
+        },function(error){
+            console.log(error);
+        });
+    }
+
+    $scope.$on('timer-tick', function (event, data) {
+            if(data.millis === 0 )
+            {
+                angular.element('#gameover').modal('show');
+            }
+    });
+
+    $scope.redirect_gameover = function()
+    {
+        window.location.href = "http://spotyplay.local";
+    }
 
     initGame();
 }]);
