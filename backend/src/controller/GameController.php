@@ -71,7 +71,7 @@ class GameController extends AbstractController
             $player = Player::where("spotify_id", "=", filter_var($data['owner'], FILTER_SANITIZE_STRING))->first();
             if (is_null($player)) {
                 $player = new Player();
-                $player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
+                $player->spotify_id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
                 $player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
                 $player->save();
             }
