@@ -7,10 +7,19 @@ app.config(function($routeProvider, $locationProvider, $logProvider, SpotifyProv
             templateUrl: '../assets/templates/play.html',
             controller: 'homeController'
         })
+        .when('/#!/scores', {
+            templateUrl: '../assets/templates/finish.html',
+            controller: 'gameController'
+        })
+        .when('/scores', {
+            templateUrl: '../assets/templates/finish.html',
+            controller: 'gameController'
+        })
         .when('/#!/play', {
             templateUrl: '../assets/templates/game.html',
             controller: 'gameController'
-        }).when('/play', {
+        })
+        .when('/play', {
             templateUrl: '../assets/templates/game.html',
             controller: 'gameController'
     }).otherwise({redirectTo: '/'}

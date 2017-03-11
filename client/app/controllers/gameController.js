@@ -1,4 +1,4 @@
-angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song", function ($scope, Spotify, $sce, GameFactory, Song) {
+angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song", "$location", function ($scope, Spotify, $sce, GameFactory, Song, $location) {
 
     $scope.position = 0;
     $scope.songs= [];
@@ -100,6 +100,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         GameFactory.finishGame({game : $scope.game.id,  score : $scope.score})
         .then(function(response){
             console.log(response);
+            $location.url('/score');
         },function(error){
             console.log(error);
         });
