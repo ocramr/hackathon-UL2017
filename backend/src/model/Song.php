@@ -17,6 +17,6 @@ class Song extends Model
     public $timestamps = false;
 
     public function games(){
-        return $this->belongsToMany('app\model\Game','game_song','id_player','id_game');
+        return $this->belongsToMany('app\model\Game','game_song','id_song','id_game');
     }
 }
