@@ -37,9 +37,9 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "owner": $scope.currentUser.id,
             "songs": songsToSend
         }).then(function (response) {
-            console.log(response.data);
+            console.log(category);
             $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
-            getchoices('pop');
+            getchoices(category.id);
 
         }, function (error) {
             console.log(error);
@@ -60,8 +60,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.selectCategory = function (category) {
-      getSongs('pop');
-      getchoices('pop');
+      getSongs(category.id);
+      getchoices(category.id);
     };
 
     var getchoices = function(category)
