@@ -5881,3 +5881,18 @@ a {
     text-align: center;
     margin-bottom: 16px;
 }
+timer
+{
+    float: right;
+    background-color: black;
+    padding: 15px;
+    position: relative;
+    color: #fff;
+    margin-right: 20%;
+    font-weight: bold;
+    font-family: monospace;
+    padding-left: 20px;
+    border-radius: 10px;
+    padding-right: 20px;
+    font-size: 18px;
+}

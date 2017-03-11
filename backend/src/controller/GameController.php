@@ -15,27 +15,27 @@ use app\model\Game_Player;
 class GameController extends AbstractController
 {
 
-    public function play($request, $response, $args)
+    public function play(Request $request, Response $response, $args)
     {
-
     	try 
     	{
-    		$data = $request->getParams();
+    		$data = $request->getParsedBody();
 
     		if (!isset($data["gameName"]) || !isset($data["userName"]) || !isset($data["owner"]) || !isset($data["songs"]))
     			return $this->json_error($response, 400, "Missing parameters");
 
     		$player = Player::where("id", "=", filter_var($data['owner'], FILTER_SANITIZE_STRING))->first();
             if (empty($player)) {
+                $player = new Player();
         		$player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
         		$player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
         		$player->save();
             }
 
-    		$game = new Game();
-    		$game->name = filter_var($data['gameName'], FILTER_SANITIZE_STRING);
-    		$game->owner = filter_var($data['owner'], FILTER_SANITIZE_STRING);
-    		$game->save();
+            $game = new Game();
+            $game->name = filter_var($data['gameName'], FILTER_SANITIZE_STRING);
+            $game->owner = filter_var($data['owner'], FILTER_SANITIZE_STRING);
+            $game->save();
 
     		foreach ($data["songs"] as $song) {
     			$newSong = new Song();
@@ -58,9 +58,11 @@ class GameController extends AbstractController
 
     		return $this->json_success($response, 200, json_encode($game));
 
-    	} catch (ModelNotFoundException $e) {
+    	} catch (ModelNotFoundException $mne) {
     		return $this->json_error($response, 404, "Not found");
-    	}
+    	}catch (\Exception $e){
+    	    return $this->json_error($response, 400, $e->getMessage());
+        }
     	
     }
 
@@ -77,5 +79,36 @@ class GameController extends AbstractController
 			return $this->json_error($response, 404, "Not found");
 		}
 	}
+
+    public function joinGame(Request $request, Response $response, $args)
+    {
+        try
+        {
+            $id = filter_var($args['id']);
+            $data = $request->getParsedBody();
+
+            $player = Player::where("id", "=", filter_var($data['player_id'], FILTER_SANITIZE_STRING))->first();
+            if (empty($player)) {
+                $player = new Player();
+                $player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
+                $player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
+                $player->save();
+            }
+            $game = Game::where("id", "=", $id)->firstOrFail();
+            $game_player = new Game_Player();
+            $game_player->id_game = $game->id;
+            $game_player->id_player = $player->id;
+            $game_player->save();
+
+            return $this->json_success($response, 201, json_encode([
+                "id"=>$game->id_game, "songs"=>$game->songs
+            ]));
+        } catch (ModelNotFoundException $mne) {
+            return $this->json_error($response, 404, "Not found");
+        }catch (\Exception $e){
+            return $this->json_error($response, 400, $e->getMessage());
+        }
+
+    }
 
 }
