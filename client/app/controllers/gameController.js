@@ -6,6 +6,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.isPlaying = false;
     $scope.score = 0;
     $scope.game = {};
+    $scope.player = {};
 
     var getSongs = function(category) {
          var $getRandomOffset = Math.floor((Math.random() * 10) + 1);
@@ -99,7 +100,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.finish = function(){
-        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score})
+        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score, player: $scope.game.player.id})
         .then(function(response){
             console.log(response);
         },function(error){
