@@ -35,8 +35,10 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     var createGame = function () {
         var songsToSend = [];
         $scope.songs.forEach(function (e) {
-            songsToSend.push(new Song(e));
+            songsToSend.push(new Song(e.track));
         });
+        console.log("yo send");
+        console.log(songsToSend);
         GameFactory.startGame({
             "gameName": "Jeu",
             "userName": $scope.currentUser.displayName || $scope.currentUser.id,
