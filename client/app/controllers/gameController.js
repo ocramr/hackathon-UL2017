@@ -29,7 +29,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.song = $scope.songs[$scope.position];
         console.log($scope.song);
-        $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:track:"+$scope.song.id);
+        $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:track:"+$scope.song.track.id);
     };
 
     var createGame = function () {
