@@ -53,14 +53,44 @@ class GameController extends AbstractController
             $game->players()->attach($player);
     		$game->save();
             $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
-    		return $this->json_success($response, 200, json_encode($tab));
+    		return $this->json_success($response, 201, json_encode($tab));
 
     	} catch (ModelNotFoundException $mne) {
     		return $this->json_error($response, 404, "Not found");
     	}catch (\Exception $e){
     	    return $this->json_error($response, 400, $e->getMessage());
         }
-    	
+    }
+
+    public function joinGame(Request $request, Response $response, $args)
+    {
+        try
+        {
+            $gameId = filter_var($args['id']);
+            $data = $request->getParsedBody();
+            $player = Player::where("spotify_id", "=", filter_var($data['owner'], FILTER_SANITIZE_STRING))->first();
+            if (is_null($player)) {
+                $player = new Player();
+                $player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
+                $player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
+                $player->save();
+            }
+            $game = Game::where("id", "=", $gameId)->firstOrFail();
+            if($game->state != Constants::GAME_END_SINGLE_PLAYER){
+                throw new \Exception("First player must end game first");
+            }
+            $game->players()->attach($player);
+            $game->state = Constants::GAME_STARTED_OTHER_PLAYER;
+            $game->save();
+            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
+            return $this->json_success($response, 200, json_encode($tab));
+
+        } catch (ModelNotFoundException $mne) {
+            return $this->json_error($response, 404, "Not found");
+        }catch (\Exception $e){
+            return $this->json_error($response, 400, $e->getMessage());
+        }
+
     }
 
 	public function finish($request, $response, $args){	
@@ -76,36 +106,5 @@ class GameController extends AbstractController
 			return $this->json_error($response, 404, "Not found");
 		}
 	}
-
-    public function joinGame(Request $request, Response $response, $args)
-    {
-        try
-        {
-            $id = filter_var($args['id']);
-            $data = $request->getParsedBody();
-
-            $player = Player::where("spotify_id", "=", filter_var($data['owner'], FILTER_SANITIZE_STRING))->first();
-            if (empty($player)) {
-                $player = new Player();
-                $player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
-                $player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
-                $player->save();
-            }
-            $game = Game::where("id", "=", $id)->firstOrFail();
-            $game_player = new Game_Player();
-            $game_player->id_game = $game->id;
-            $game_player->id_player = $player->id;
-            $game_player->save();
-
-            return $this->json_success($response, 201, json_encode([
-                "id"=>$game->id_game, "songs"=>$game->songs
-            ]));
-        } catch (ModelNotFoundException $mne) {
-            return $this->json_error($response, 404, "Not found");
-        }catch (\Exception $e){
-            return $this->json_error($response, 400, $e->getMessage());
-        }
-
-    }
 
 }
