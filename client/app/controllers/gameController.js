@@ -72,6 +72,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     var initGame = function () {
         if($routeParams.gameId){
+            console.log("aqui");
             Spotify.getCurrentUser().then(function (response) {
                 $scope.currentUser = response.data;
                 $scope.currentUserUri = $sce.trustAsResourceUrl("https://embed.spotify.com/follow/1/?uri=spotify%3Auser%3A"+$scope.currentUser.id+"&size=detail&theme=dark");
