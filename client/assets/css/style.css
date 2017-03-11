@@ -5902,3 +5902,12 @@ timer
     color: aliceblue;
     margin-bottom: 8px;
 }
+.logo
+{
+  margin-left: 100%;
+  margin-top: 56%;
+  margin-bottom: 19px;
+}
+.played-tracks span {
+    display: inherit;
+}

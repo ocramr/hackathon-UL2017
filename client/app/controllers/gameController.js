@@ -28,7 +28,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     var loadNewSong = function()
     {
         $scope.song = $scope.songs[$scope.position];
-        console.log($scope.song);
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:track:"+$scope.song.track.id);
     };
 
@@ -37,8 +36,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         $scope.songs.forEach(function (e) {
             songsToSend.push(new Song(e.track));
         });
-        console.log("yo send");
-        console.log(songsToSend);
         GameFactory.startGame({
             "gameName": "Jeu",
             "userName": $scope.currentUser.displayName || $scope.currentUser.id,
@@ -98,7 +95,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     {
         $scope.position = $scope.position+1;
         if($scope.position < $scope.songs.length){
-            if($scope.song.id == id)
+            if($scope.song.track.id == id)
             {
                 $scope.score = $scope.score + 1;
             }
@@ -111,16 +108,18 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     $scope.finish = function(){
-        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score, player: $scope.game.player.id})
+         $scope.current= angular.element("#mytimer")[0]['innerHTML'];
+         var duration = 150 - $scope.current/1000;
+        GameFactory.finishGame({game : $scope.game.id, duration : duration , score : $scope.score, player: $scope.game.player.id})
         .then(function(response){
-            console.log(response);
+            angular.element('#finish').modal('show');
+            console.log($scope.songs)
         },function(error){
             console.log(error);
         });
     }
 
     $scope.$on('timer-tick', function (event, data) {
-        console.log(data.millis)
             if(data.millis === 0 )
             {
                 angular.element('#gameover').modal('show');
