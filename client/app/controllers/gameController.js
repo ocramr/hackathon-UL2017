@@ -33,7 +33,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         });
          $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
             $scope.isPlaying = true;
-     /*   GameFactory.startGame({
+        GameFactory.startGame({
             "gameName": "Jeu",
             "userName": $scope.currentUser.displayName || $scope.currentUser.id,
             "owner": $scope.currentUser.id,
@@ -44,7 +44,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             $scope.isPlaying = true;
         }, function (error) {
             console.log(error);
-        });  */
+        });  
     };
 
     var initGame = function () {
@@ -96,3 +96,4 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
 
     initGame();
 }]);
+

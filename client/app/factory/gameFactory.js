@@ -3,6 +3,11 @@ angular.module('spotyGame').factory('GameFactory', ['BACKEND_URL','$http',functi
     return {
         startGame:function (json) {
             return $http.post(BACKEND_URL+'game/play', json);
+        },
+        
+        finishGame:function(json) {
+            return $http.post(BACKEND_URL+'game/finish', json);
+
         }
     }
 
