@@ -5914,3 +5914,31 @@ timer
 .played-tracks span {
     display: inherit;
 }
+.sidebar{
+    width: 22%;
+    float: right;
+    background-color: black;
+    color: lightblue;
+    padding: 14px;
+    opacity: 0.7;
+    height: 480px;
+    overflow: scroll;
+}
+.sidebar div {
+    border-bottom: 1px solid lightblue;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.content-page {
+    width: 78%;
+    float: left
+}
+
+#response {
+    font-size: 20px;
+    padding: 42px;
+    opacity: 0.8;
+    margin-top: 10px;
+        overflow: hidden;
+}

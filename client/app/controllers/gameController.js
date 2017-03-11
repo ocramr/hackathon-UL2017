@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-angular.module('spotyGame').controller('gameController', ["$rootScope","$scope" ,"Spotify", "$sce", "GameFactory", "Song",  function ($rootScope,$scope, Spotify, $sce, GameFactory, Song) {
-
-=======
 angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "$sce", "GameFactory", "Song", "$routeParams",  function ($scope, Spotify, $sce, GameFactory, Song, $routeParams) {
->>>>>>> ccd671124e77ede8a05d12d34ca6e06c3ad47604
     $scope.position = 0;
     $scope.rankings = []
     $scope.songs= [];
@@ -11,7 +6,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.isPlaying = false;
     $scope.score = 0;
     $scope.game = {};
-    $scope.player = {};
     
     var categoryId;
 
@@ -33,11 +27,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                     loadNewSong();
                     $scope.choices = response.data.items.slice(10,13);
                     $scope.choices.push($scope.song);
-<<<<<<< HEAD
                     $scope.choices.sort(function(a, b){return 0.5 - Math.random()});
-=======
-                    console.log($scope.choices);
->>>>>>> ccd671124e77ede8a05d12d34ca6e06c3ad47604
+
                     createGame();
                 })
         });
@@ -167,7 +158,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "game" : $scope.game.id,
             "duration" : duration ,
             "score" : $scope.score,
-            "player": $scope.game.player.id
+            "player": $scope.currentUser.id
         })
         .then( function(response){
             angular.element('#finish').modal('show');

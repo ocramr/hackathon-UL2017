@@ -7,6 +7,8 @@ angular.module('spotyGame').factory('GameFactory', ['BACKEND_URL','$http',functi
         rankings : function()
         {
              return $http.get(BACKEND_URL+'game/rankings');
+        },
+        
         finishGame: function (json) {
             return $http.post(BACKEND_URL + 'game/finish', json);
         },

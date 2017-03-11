@@ -1,10 +1,5 @@
 <div ng-include="'GameOverModal.html'"></div>
 <div ng-include="'FinishGame.html'"></div>
-<div class="sidebar" ng-show="isPlaying">
-    <div ng-repeat = "ranking in rankings">
-        <span>{{ranking.Pseudo}}, Score : {{ranking.Score}}, Durée : {{ranking.Duration}}</span>
-    </div>
-</div>
 <div class="row header" ng-if="currentUser">
     <div class="col-lg-8">
         <img src="assets/images/logo.png">
@@ -13,6 +8,13 @@
         <iframe src="{{currentUserUri}}" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
     </div>
 </div>
+<div class="sidebar" ng-show="isPlaying">
+    <div ng-repeat = "ranking in rankings">
+        <span>{{ranking.Pseudo}}, Score : {{ranking.Score}}, Durée : {{ranking.Duration}}</span>
+    </div>
+</div>
+<div class="content-page">
+    <timer id="mytimer" interval="1000" countdown="150">{{countdown}}</timer>
 <div class="row share-bt">
             <button class="btn btn-medium font-bold"
                     socialshare
@@ -38,7 +40,8 @@
              <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choices[2].track.id)">{{choices[2].track.name}}</button>
               <button id="response" type="button" class="btn btn-success btn-block" ng-click="checkChoice(choics[3].track.id)">{{choices[3].track.name}}</button>
             </div>    
-        <timer id="mytimer" interval="1000" countdown="150">{{countdown}}</timer>
+        
+</div>
 </div>
 <categories></categories>
 
