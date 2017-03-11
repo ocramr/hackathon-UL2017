@@ -29,9 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `game` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `state` enum('0','1','','') NOT NULL DEFAULT '0',
+  `state` int NOT NULL DEFAULT '0',
   `owner` varchar(20) NOT NULL,
-  `score` int(11) NOT NULL default 0,
   PRIMARY KEY (`id`),
   KEY `owner` (`owner`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
@@ -67,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `song` (
 CREATE TABLE IF NOT EXISTS `game_player` (
   `id_game` int NOT NULL,
   `id_player` int NOT NULL,
+  `score` int(11) NOT NULL default 0,
   PRIMARY KEY (`id_game`, `id_player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
