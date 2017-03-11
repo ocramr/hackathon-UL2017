@@ -87,5 +87,17 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             $scope.score = $scope.score + 1;
         }
     }
+
+    $scope.finishGame = function(id){
+        GameFactory.finishGame({
+            id_game : id,
+            score : $scope.score
+        }).then(function(response){
+            console.log(response)
+        }, function(error){
+            console.log(error);
+        })
+    }
+
     initGame();
 }]);

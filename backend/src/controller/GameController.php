@@ -64,4 +64,18 @@ class GameController extends AbstractController
     	
     }
 
+	public function finish($request, $response, $args){	
+		$data = $request->getParsedBody();
+		try{
+			$game = Game::where("id", "=", filter_var($data['id_game'], FILTER_SANITIZE_STRING))->firstOrfail();
+			$game->state++;
+			$player = Game_Player::where("id_game", "=", filter_var($data['id_game'], FILTER_SANITIZE_STRING))->firstOrfail();
+			$player->score = filter_var($data['score'], FILTER_SANITIZE_STRING);
+			return $this->json_success($response, 201, json_encode(null));
+		}
+		catch(ModelNotFoundException $ex){
+			return $this->json_error($response, 404, "Not found");
+		}
+	}
+
 }
