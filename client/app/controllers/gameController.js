@@ -14,8 +14,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                                          {'limit':'10', offset:$getRandomOffset})
              .then(function(response){
                  $scope.songs = response.data.items
-                 $scope.song = $scope.songs[$scope.position]; 
-                 getChoices(category);
+                 loadNewSong()
+                 getChoices('pop');
              })
           });
     };
@@ -48,9 +48,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     };
 
     var initGame = function () {
-        Spotify.getCategories({}).then(function (response) {
-             $scope.categories = response.data.categories.items;
-
+   
         Spotify.getCurrentUser().then(function (response) {
             $scope.currentUser = response.data;
             $scope.currentUserUri = $sce.trustAsResourceUrl("https://embed.spotify.com/follow/1/?uri=spotify%3Auser%3A"+$scope.currentUser.id+"&size=detail&theme=dark");
@@ -58,7 +56,6 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
                 $scope.categories = response.data.categories.items;
             });
 
-        });
         });
     };
 
@@ -76,6 +73,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
         Spotify.search('genre:'+category, 'track', $options).then(function (response) {
             $scope.choices = response.data.tracks.items;
             $scope.choices.push($scope.song);
+            console.log($scope.choices)
             createGame();
         });
     };
