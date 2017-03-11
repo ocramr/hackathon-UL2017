@@ -33,8 +33,7 @@ class GameController extends AbstractController
             $game = new Game();
             $game->name = filter_var($data['gameName'], FILTER_SANITIZE_STRING);
             $game->owner = $player->spotify_id;
-            $game->status = Constants::GAME_STARTED_SINGLE_PLAYER;
-            $game->score = 0;
+            $game->state = Constants::GAME_STARTED_SINGLE_PLAYER;
             $game->save();
 
     		foreach ($data["songs"] as $song) {
@@ -50,56 +49,41 @@ class GameController extends AbstractController
                 $newSong->games()->attach($game);
     			$newSong->save();
     		}
-            $game->players()->attach($player);
+            $game->players()->attach($player->id, ['score'=>0]);
     		$game->save();
             $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
-    		return $this->json_success($response, 200, json_encode($tab));
+    		return $this->json_success($response, 201, json_encode($tab));
 
     	} catch (ModelNotFoundException $mne) {
     		return $this->json_error($response, 404, "Not found");
     	}catch (\Exception $e){
     	    return $this->json_error($response, 400, $e->getMessage());
         }
-    	
     }
-
-	public function finish($request, $response, $args){	
-		$data = $request->getParsedBody();
-		try{
-			$game = Game::where("id", "=", filter_var($data['id_game'], FILTER_SANITIZE_STRING))->firstOrfail();
-			$game->state++;
-			$player = Game_Player::where("id_game", "=", filter_var($data['id_game'], FILTER_SANITIZE_STRING))->firstOrfail();
-			$player->score = filter_var($data['score'], FILTER_SANITIZE_STRING);
-			return $this->json_success($response, 201, json_encode(null));
-		}
-		catch(ModelNotFoundException $ex){
-			return $this->json_error($response, 404, "Not found");
-		}
-	}
 
     public function joinGame(Request $request, Response $response, $args)
     {
         try
         {
-            $id = filter_var($args['id']);
+            $gameId = filter_var($args['id']);
             $data = $request->getParsedBody();
-
             $player = Player::where("spotify_id", "=", filter_var($data['owner'], FILTER_SANITIZE_STRING))->first();
-            if (empty($player)) {
+            if (is_null($player)) {
                 $player = new Player();
-                $player->id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
+                $player->spotify_id = filter_var($data['owner'], FILTER_SANITIZE_STRING);
                 $player->pseudo = filter_var($data['userName'], FILTER_SANITIZE_STRING);
                 $player->save();
             }
-            $game = Game::where("id", "=", $id)->firstOrFail();
-            $game_player = new Game_Player();
-            $game_player->id_game = $game->id;
-            $game_player->id_player = $player->id;
-            $game_player->save();
+            $game = Game::where("id", "=", $gameId)->firstOrFail();
+            if($game->state != Constants::GAME_END_SINGLE_PLAYER){
+                throw new \Exception("First player must end game first");
+            }
+            $game->players()->attach($player->id, ['score'=>0]);
+            $game->state = Constants::GAME_STARTED_OTHER_PLAYER;
+            $game->save();
+            $tab = ["id"=>$game->id, "name"=>$game->name, "state"=>$game->state, "score"=>$game->score, "players"=>$game->players, "songs"=>$game->songs];
+            return $this->json_success($response, 200, json_encode($tab));
 
-            return $this->json_success($response, 201, json_encode([
-                "id"=>$game->id_game, "songs"=>$game->songs
-            ]));
         } catch (ModelNotFoundException $mne) {
             return $this->json_error($response, 404, "Not found");
         }catch (\Exception $e){
@@ -108,4 +92,28 @@ class GameController extends AbstractController
 
     }
 
+    public function finish($request, $response, $args)
+    {
+        $data = $request->getParsedBody();
+        try
+        {
+            $game = Game::where('id', '=', filter_var($data['game'], FILTER_SANITIZE_STRING))->firstOrfail();
+            switch ($game->state) {
+                case Constants::GAME_STARTED_SINGLE_PLAYER :
+                    $game->state = Constants::GAME_END_SINGLE_PLAYER;
+                    break;
+                case Constants::GAME_STARTED_OTHER_PLAYER :
+                    $game->state = Constants::GAME_END_OTHER_PLAYER;
+                    break;
+                default :
+                    return $this->json_error($response, 403, "State not valid");
+            }
+            $game->pivot->score = filter_var($data['score'], FILTER_SANITIZE_NUMBER_INT);
+            $game->pivot->save();
+            return $this->json_success($response, 201, json_encode(null));
+        }
+        catch (ModelNotFoundException $mne) {
+            return $this->json_error($response, 404, "Not found");
+        }
+    }
 }

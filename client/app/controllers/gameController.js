@@ -5,17 +5,19 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     $scope.choices= [];
     $scope.isPlaying = false;
     $scope.score = 0;
+    $scope.game = {};
 
     var getSongs = function(category) {
-         $getRandomOffset = Math.floor((Math.random() * 10) + 1);
+         var $getRandomOffset = Math.floor((Math.random() * 10) + 1);
          
          Spotify.getCategoryPlaylists(category, {limit :'1'}).then(function(response){
              Spotify.getPlaylistTracks(response.data.playlists.items[0].owner.id, response.data.playlists.items[0].id, 
                                          {'limit':'10', offset:$getRandomOffset})
              .then(function(response){
-                 $scope.songs = response.data.items
-                 loadNewSong()
-                 getChoices('pop');
+                 $scope.songs = response.data.items;
+                 console.log($scope.songs);
+                 loadNewSong();
+                 getChoices(category);
              })
           });
     };
@@ -23,8 +25,8 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
     var loadNewSong = function()
     {
         $scope.song = $scope.songs[$scope.position];
+        console.log($scope.song);
         $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.track.id);
-        getChoices('pop');
     };
 
     var createGame = function () {
@@ -40,7 +42,7 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             "owner": $scope.currentUser.id,
             "songs": songsToSend
         }).then(function (response) {
-            console.log(response.data);
+            $scope.game = response.data;
             $scope.playUri = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify%3Atrack%3A"+$scope.song.id);
             $scope.isPlaying = true;
         }, function (error) {
@@ -90,11 +92,19 @@ angular.module('spotyGame').controller('gameController', ["$scope" ,"Spotify", "
             }
             loadNewSong();
         }else{
-            //Ecran terminé
-            console.log("terminé");
+            $scope.finish();
         }
 
     };
+
+    $scope.finish = function(){
+        GameFactory.finishGame({game : $scope.game.id,  score : $scope.score})
+        .then(function(response){
+            console.log(response);
+        },function(error){
+            console.log(error);
+        });
+    }
 
     initGame();
 }]);
