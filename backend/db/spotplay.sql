@@ -75,9 +75,9 @@ CREATE TABLE IF NOT EXISTS `game_player` (
 --
 
 CREATE TABLE IF NOT EXISTS `game_song` (
+  `id` int NOT NULL auto_increment primary key,
   `id_song` int NOT NULL,
-  `id_game` int NOT NULL,
-  PRIMARY KEY (`id_song`, `id_game`)
+  `id_game` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
