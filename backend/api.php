@@ -41,7 +41,7 @@ $app->group('/game', function (){
 
     $this->post('/play', GameController::class. ':play')->setName('play');
     $this->post('/finish', GameController::class. ':finish')->setName('finish');
-    $this->put('/joinGame/id', GameController::class. ':joinGame')->setName('joinGame');
+    $this->put('/joinGame/{id}', GameController::class. ':joinGame')->setName('joinGame');
     $this->get('/rankings', GameController::class. ':rankings')->setName('rankings');
 
 
